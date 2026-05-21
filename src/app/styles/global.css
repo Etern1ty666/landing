@@ -1,3 +1,28 @@
+:root {
+  --header-width: 720px;
+  --header-height: 64px;
+  --header-offset-top: 16px;
+
+  /* Typography — три и только три уровня */
+  --font-size-heading: 32px;
+  --font-size-body: 16px;
+  --font-size-muted: 14px;
+
+  --font-weight-heading: 700;
+  --font-weight-body: 400;
+  --font-weight-muted: 400;
+
+  --line-height-heading: 1.2;
+  --line-height-body: 1.5;
+  --line-height-muted: 1.5;
+
+  --color-text: #1a1a1a;
+  --color-text-muted: #8a8a8a;
+
+  /* Brand gradient */
+  --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+}
+
 *,
 *::before,
 *::after {
@@ -21,7 +46,7 @@ body {
     Cantarell, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #1a1a1a;
+  color: var(--color-text);
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -9,5 +9,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 96px 24px 48px;
+  padding: calc(var(--header-offset-top) + var(--header-height) + 16px) 24px 48px;
 }

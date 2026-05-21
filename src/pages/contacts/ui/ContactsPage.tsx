@@ -1,3 +1,5 @@
+import { Text } from '@/shared/ui';
+
 export const ContactsPage = () => {
-  return <h1>Контакты</h1>;
+  return <Text variant="heading">Контакты</Text>;
 };

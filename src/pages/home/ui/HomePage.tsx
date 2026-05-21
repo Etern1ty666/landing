@@ -1,3 +1,5 @@
+import { Text } from '@/shared/ui';
+
 export const HomePage = () => {
-  return <h1>Hello world</h1>;
+  return <Text variant="heading">Hello world</Text>;
 };

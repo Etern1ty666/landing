@@ -1,3 +1,5 @@
+import { Text } from '@/shared/ui';
+
 export const ProjectsPage = () => {
-  return <h1>Проекты</h1>;
+  return <Text variant="heading">Проекты</Text>;
 };
