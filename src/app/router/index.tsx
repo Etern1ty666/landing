@@ -5,13 +5,25 @@ import { ProjectsPage } from '@/pages/projects';
 import { ContactsPage } from '@/pages/contacts';
 import { ROUTES } from '@/shared/constants';
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      element: <MainLayout />,
+      children: [
+        { path: ROUTES.home, element: <HomePage /> },
+        { path: ROUTES.projects, element: <ProjectsPage /> },
+        { path: ROUTES.contacts, element: <ContactsPage /> },
+      ],
+    },
+  ],
   {
-    element: <MainLayout />,
-    children: [
-      { path: ROUTES.home, element: <HomePage /> },
-      { path: ROUTES.projects, element: <ProjectsPage /> },
-      { path: ROUTES.contacts, element: <ContactsPage /> },
-    ],
+    future: {
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+      v7_fetcherPersist: true,
+      v7_normalizeFormMethod: true,
+      v7_partialHydration: true,
+      v7_skipActionErrorRevalidation: true,
+    },
   },
-]);
+);

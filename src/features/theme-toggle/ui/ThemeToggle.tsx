@@ -1,49 +1,46 @@
 import { useState, type MouseEvent } from 'react';
-import { useTheme, type Theme } from '@/shared/lib/theme';
+import { useTheme } from '@/shared/lib/theme';
 import { MoonIcon, SunIcon } from './icons';
 import styles from './ThemeToggle.module.css';
 
-const OPTIONS: { value: Theme; label: string; icon: () => JSX.Element }[] = [
-  { value: 'light', label: 'Светлая тема', icon: SunIcon },
-  { value: 'dark', label: 'Тёмная тема', icon: MoonIcon },
-];
+const BURST_DURATION = 400;
 
 export const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
-  const [rippling, setRippling] = useState<Theme | null>(null);
+  const { theme, toggleTheme } = useTheme();
+  const [bursting, setBursting] = useState(false);
 
-  const handleClick = (next: Theme) => (event: MouseEvent<HTMLButtonElement>) => {
-    if (next === theme) return;
-    setRippling(next);
-    window.setTimeout(() => setRippling(null), 600);
-    setTheme(next, { clientX: event.clientX, clientY: event.clientY });
+  const isLight = theme === 'light';
+  const Icon = isLight ? SunIcon : MoonIcon;
+  const label = isLight ? 'Включить тёмную тему' : 'Включить светлую тему';
+
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    if (bursting) return;
+    setBursting(true);
+    const coords = { clientX: event.clientX, clientY: event.clientY };
+
+    window.setTimeout(() => {
+      toggleTheme(coords);
+    }, BURST_DURATION / 2);
+
+    window.setTimeout(() => {
+      setBursting(false);
+    }, BURST_DURATION);
   };
 
-  return (
-    <div className={styles.group} role="group" aria-label="Переключение темы">
-      {OPTIONS.map(({ value, label, icon: Icon }) => {
-        const isActive = theme === value;
-        const className = [
-          styles.button,
-          isActive && styles.buttonActive,
-          rippling === value && styles.rippling,
-        ]
-          .filter(Boolean)
-          .join(' ');
+  const className = [styles.button, bursting && styles.bursting]
+    .filter(Boolean)
+    .join(' ');
 
-        return (
-          <button
-            key={value}
-            type="button"
-            className={className}
-            onClick={handleClick(value)}
-            aria-label={label}
-            aria-pressed={isActive}
-          >
-            <Icon />
-          </button>
-        );
-      })}
-    </div>
+  return (
+    <button
+      type="button"
+      className={className}
+      onClick={handleClick}
+      aria-label={label}
+    >
+      <span key={theme} className={styles.iconWrap}>
+        <Icon />
+      </span>
+    </button>
   );
 };

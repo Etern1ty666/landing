@@ -39,7 +39,7 @@
   /* ---------- Layout / header */
   --header-width: 720px;
   --header-height: 64px;
-  --header-offset-top: 16px;
+  --header-offset-top: 32px;
   --header-blur: 16px;
   --header-logo-size: 20px;
   --header-link-size: 15px;
