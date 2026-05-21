@@ -6,9 +6,9 @@
   z-index: 100;
   width: var(--header-width);
   height: var(--header-height);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   padding: 0 18px 0 28px;
   background: var(--header-bg);
   backdrop-filter: blur(var(--header-blur));
@@ -27,6 +27,7 @@
 .nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 28px;
 }
 
@@ -45,6 +46,7 @@
 .action {
   display: inline-flex;
   align-items: center;
+  justify-self: end;
   font-size: var(--header-link-size);
   font-weight: 600;
   background: var(--gradient-brand);
