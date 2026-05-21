@@ -120,17 +120,30 @@ import { Header } from '@/widgets/header/ui/Header';
 
 В `index.ts` ре-экспортируем только то, что должно быть видно снаружи. Внутренние компоненты, хелперы, типы — остаются приватными.
 
-### 2.6. Алиас путей
+### 2.6. Алиас путей и относительные импорты
 
-В проекте используется алиас `@/*` → `src/*`. Всегда импортируй через `@/`, не относительными путями между слоями.
+В проекте используется алиас `@/*` → `src/*`.
+
+**Правило:**
+- Между слоями/слайсами — **только** абсолютный путь через `@/`.
+- **Внутри одного слайса** (например, из `ui/Header.tsx` в `model/nav-items.ts` того же widget) — **только** относительный путь.
 
 ```ts
-// ✅
+// ✅ между слоями
 import { Button } from '@/shared/ui';
 
-// ❌
+// ✅ внутри слайса
+import { router } from './router';
+import { MainLayout } from '../layouts/main-layout';
+
+// ❌ относительный путь между слоями
 import { Button } from '../../../shared/ui';
+
+// ❌ абсолютный путь внутри одного слайса
+import { router } from '@/app/router'; // если ты в src/app/App.tsx
 ```
+
+Это правило проверяет ESLint-плагин `@conarti/feature-sliced` (`absolute-relative`).
 
 ---
 
@@ -206,7 +219,7 @@ import { Text } from '@/shared/ui';
 | HTTP-клиент, базовый fetch                        | `src/shared/api/`                                 |
 | Конфиг роутера                                    | `src/app/router/`                                 |
 | Глобальный провайдер (Theme, Router, QueryClient) | `src/app/providers/`                              |
-| Layout с `<Outlet />`                             | `src/app/providers/` или отдельный widget         |
+| Layout с `<Outlet />`                             | `src/app/layouts/<name>/`                         |
 | Картинка/иконка/шрифт                             | `src/shared/assets/{images,icons,fonts}/`         |
 
 Если непонятно, куда положить — **спроси у пользователя**, не угадывай.

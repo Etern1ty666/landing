@@ -57,9 +57,11 @@ import { Header } from '@/widgets/header';
 import { Header } from '@/widgets/header/ui/Header';
 ```
 
-### Алиас
+### Алиас и относительные пути
 
-Все импорты между слоями — через `@/*` → `src/*`.
+- Между слоями/слайсами — **только** `@/*` → `src/*`.
+- Внутри одного слайса — **только** относительный путь (`./`, `../`).
+- Проверяется ESLint-правилом `@conarti/feature-sliced/absolute-relative`.
 
 ## Куда что класть
 

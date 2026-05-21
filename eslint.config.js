@@ -33,22 +33,8 @@ export default tseslint.config(
       '@conarti/feature-sliced/layers-slices': 'error',
       // FSD: запрещает импорт во внутренности слайса (только через index.ts)
       '@conarti/feature-sliced/public-api': 'error',
-      // FSD: запрещает абсолютные пути там, где должны быть относительные внутри слайса
+      // FSD: внутри одного слайса — относительные пути, между слоями — абсолютные через @/
       '@conarti/feature-sliced/absolute-relative': 'error',
-
-      // Заставляет использовать алиас @/ между слоями
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['../*', '../../*', '../../../*'],
-              message:
-                'Используй абсолютный импорт через алиас @/ между слоями (FSD).',
-            },
-          ],
-        },
-      ],
     },
     settings: {
       'import/resolver': {
