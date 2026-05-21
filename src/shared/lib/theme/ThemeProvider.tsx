@@ -66,6 +66,18 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     applyTheme(theme);
   }, [theme]);
 
+  // Подписка на системную тему: если пользователь не выбрал тему руками
+  // (нет записи в localStorage) — следуем за ОС в реальном времени.
+  useEffect(() => {
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (window.localStorage.getItem(STORAGE_KEY) !== null) return;
+      setThemeState(event.matches ? 'dark' : 'light');
+    };
+    mql.addEventListener('change', handleChange);
+    return () => mql.removeEventListener('change', handleChange);
+  }, []);
+
   const setTheme = useCallback<
     (next: Theme, event?: { clientX: number; clientY: number }) => void
   >((next, event) => {
