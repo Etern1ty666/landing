@@ -35,7 +35,7 @@ export const Header = () => {
         rel="noopener noreferrer"
         className={styles.action}
       >
-        Написать
+        Написать в Telegram
       </a>
     </header>
   );
