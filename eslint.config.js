@@ -5,11 +5,12 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import featureSliced from '@conarti/eslint-plugin-feature-sliced';
 import importPlugin from 'eslint-plugin-import';
+import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   { ignores: ['dist', 'node_modules', 'eslint.config.js', 'vite.config.ts'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, prettier],
     files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
