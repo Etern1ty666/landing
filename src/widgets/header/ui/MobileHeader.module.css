@@ -11,13 +11,14 @@
   /* Левый padding чуть больше — компенсирует «пустой» хит-эриа бургера справа,
      чтобы лого и иконка визуально стояли на одинаковом расстоянии от края. */
   padding: 0 16px 0 24px;
-  background: var(--color-surface);
+  background: var(--color-header-bg);
   backdrop-filter: blur(var(--header-blur));
   -webkit-backdrop-filter: blur(var(--header-blur));
   border-radius: calc(var(--header-height) / 2);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-header);
   overflow: hidden;
   transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  view-transition-name: header;
 }
 
 .wrapper.open {

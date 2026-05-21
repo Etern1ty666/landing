@@ -1,0 +1,52 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  font-size: var(--font-size-muted);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border-radius: var(--radius-pill);
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.button:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.icon {
+  display: inline-flex;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.liked {
+  color: #e0245e;
+}
+
+.liked:hover {
+  color: #e0245e;
+}
+
+.liked .icon {
+  transform: scale(1.18);
+}
+
+.pulse .icon {
+  animation: heartPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes heartPop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1.18);
+  }
+}

@@ -77,12 +77,15 @@
   --color-bg: #ffffff;
   --color-surface: rgba(60, 60, 67, 0.1);
   --color-surface-hover: rgba(60, 60, 67, 0.16);
+  /* Лёгкий off-white — отличается тоном, не приподнятостью. */
+  --color-header-bg: rgba(243, 244, 248, 0.68);
 
   --color-text: #1a1a1a;
   --color-text-secondary: #4a4a4a;
   --color-text-muted: #8a8a8a;
 
   --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-header: none;
 }
 
 /* ============================== Dark theme ============================= */
@@ -90,12 +93,14 @@
   --color-bg: #0d0d0f;
   --color-surface: rgba(255, 255, 255, 0.08);
   --color-surface-hover: rgba(255, 255, 255, 0.14);
+  --color-header-bg: rgba(34, 34, 40, 0.68);
 
   --color-text: #f5f5f7;
   --color-text-secondary: #c8c8cd;
   --color-text-muted: #8a8a90;
 
   --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-header: 0 6px 28px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================== Reset ================================== */
@@ -155,4 +160,17 @@ button {
 
 ::view-transition-new(root) {
   z-index: 2;
+}
+
+/* Хедер — отдельный план: мягкий cross-fade между старой и новой темами,
+   без потери backdrop-blur во время раскрытия root-перехода. */
+::view-transition-old(header),
+::view-transition-new(header) {
+  animation-duration: 280ms;
+  animation-timing-function: ease;
+  mix-blend-mode: normal;
+}
+
+::view-transition-group(header) {
+  z-index: 3;
 }

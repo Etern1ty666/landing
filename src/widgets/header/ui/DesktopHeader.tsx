@@ -2,12 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { ROUTES } from '@/shared/constants';
 import { EXTERNAL_LINKS } from '@/shared/config';
 import { ThemeToggle } from '@/features/theme-toggle';
+import { NAV_ITEMS } from '../model/nav-items';
 import styles from './DesktopHeader.module.css';
-
-const NAV_ITEMS = [
-  { to: ROUTES.projects, label: 'Проекты' },
-  { to: ROUTES.contacts, label: 'Контакты' },
-];
 
 export const DesktopHeader = () => {
   return (

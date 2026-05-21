@@ -7,7 +7,9 @@
 .main {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: calc(var(--header-offset-top) + var(--header-height) + 16px) 24px 48px;
+  /* Контент выровнен по верху — длинные ленты и страницы скроллятся как обычно.
+     Страницы с одним заголовком пусть сами центрируют свой контент. */
+  padding: calc(var(--header-offset-top) + var(--header-height) + 24px) 24px 48px;
 }
