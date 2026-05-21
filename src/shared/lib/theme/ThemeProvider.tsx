@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { ThemeContext } from './ThemeContext';
 import type { Theme } from './types';
 
@@ -66,6 +73,12 @@ type ThemeProviderProps = {
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setThemeState] = useState<Theme>(getInitialTheme);
 
+  // Источник правды для «текущей темы» при быстрых кликах — ref, который
+  // обновляется СИНХРОННО до того как React успеет перерендерить. Без него
+  // несколько кликов подряд читают одно и то же стейл-значение из замыкания.
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
+
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
@@ -76,7 +89,9 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (event: MediaQueryListEvent) => {
       if (window.localStorage.getItem(STORAGE_KEY) !== null) return;
-      setThemeState(event.matches ? 'dark' : 'light');
+      const next: Theme = event.matches ? 'dark' : 'light';
+      themeRef.current = next;
+      setThemeState(next);
     };
     mql.addEventListener('change', handleChange);
     return () => mql.removeEventListener('change', handleChange);
@@ -85,9 +100,13 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const setTheme = useCallback<
     (next: Theme, event?: { clientX: number; clientY: number }) => void
   >((next, event) => {
+    // Синхронно фиксируем «текущее» значение до планирования View Transition,
+    // чтобы следующий клик в том же тике видел свежий ref.
+    themeRef.current = next;
+    window.localStorage.setItem(STORAGE_KEY, next);
+
     runWithViewTransition(() => {
       setThemeState(next);
-      window.localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
     }, event);
   }, []);
@@ -96,9 +115,10 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     (event?: { clientX: number; clientY: number }) => void
   >(
     (event) => {
-      setTheme(theme === 'light' ? 'dark' : 'light', event);
+      const next: Theme = themeRef.current === 'light' ? 'dark' : 'light';
+      setTheme(next, event);
     },
-    [theme, setTheme],
+    [setTheme],
   );
 
   const value = useMemo(

@@ -3,8 +3,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   color: var(--color-text-secondary);
   border-radius: var(--radius-pill);
   transition: color var(--transition-fast);
