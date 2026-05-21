@@ -1,0 +1,61 @@
+.group {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: var(--color-surface);
+  border-radius: var(--radius-pill);
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+  overflow: visible;
+}
+
+.button:hover {
+  color: var(--color-text-secondary);
+}
+
+.buttonActive {
+  color: var(--color-bg);
+  background: var(--gradient-accent);
+}
+
+.buttonActive:hover {
+  color: var(--color-bg);
+}
+
+/* Ripple — пульсирующее кольцо вокруг нажатой кнопки */
+.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid var(--color-accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rippling::after {
+  animation: ripple 0.55s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}

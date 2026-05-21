@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '@/shared/constants';
 import { EXTERNAL_LINKS } from '@/shared/config';
+import { ThemeToggle } from '@/features/theme-toggle';
 import styles from './Header.module.css';
 
 const NAV_ITEMS = [
@@ -11,9 +12,12 @@ const NAV_ITEMS = [
 export const Header = () => {
   return (
     <header className={styles.wrapper}>
-      <NavLink to={ROUTES.home} className={styles.logo}>
-        Novikov
-      </NavLink>
+      <div className={styles.left}>
+        <NavLink to={ROUTES.home} className={styles.logo}>
+          Novikov
+        </NavLink>
+        <ThemeToggle />
+      </div>
 
       <nav className={styles.nav}>
         {NAV_ITEMS.map((item) => (

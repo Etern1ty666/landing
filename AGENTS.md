@@ -85,10 +85,19 @@ import { Header } from '@/widgets/header/ui/Header';
 - Не добавляй комментарии без необходимости.
 - Не создавай `utils/`, `helpers/`, `common/` в корне `src/` — это нарушает FSD.
 
-## Стили
+## Стили и дизайн-система
 
-- CSS Modules. Дизайн-токены — CSS-переменные в `src/app/styles/global.css`.
-- Использовать только токены (`var(--...)`), не хардкодить значения в компонентах.
+- CSS Modules. **Все** дизайн-токены живут в `src/app/styles/global.css`.
+- В компонентах только `var(--...)`: цвета, шрифты, радиусы, тени, переходы.
+- Категории токенов: `--color-*`, `--gradient-*`, `--font-*`, `--radius-*`, `--shadow-*`, `--transition-*`, `--header-*`, `--z-*`.
+- Запрещено: хардкодить hex/rgba, `font-family`, `border-radius`, тени в компонентах.
+
+## Темизация
+
+- Две темы — `light` и `dark`, переключаются через `data-theme` на `<html>`.
+- Переключатель — `@/features/theme-toggle`. Хук — `useTheme()` из `@/shared/lib/theme`.
+- Любой новый цвет должен иметь пару в `[data-theme="dark"]` блоке `global.css`. Без пары — нельзя.
+- Использовать только семантические токены (`--color-bg`, `--color-text`, `--color-surface`), не хардкодить `#fff/#000`.
 
 ## Типографика — строгое правило
 

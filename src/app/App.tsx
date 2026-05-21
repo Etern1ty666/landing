@@ -1,6 +1,11 @@
 import { RouterProvider } from 'react-router-dom';
+import { ThemeProvider } from '@/shared/lib/theme';
 import { router } from './router';
 
 export const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 };

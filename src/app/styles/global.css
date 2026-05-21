@@ -1,9 +1,23 @@
-:root {
-  --header-width: 720px;
-  --header-height: 64px;
-  --header-offset-top: 16px;
+/* =========================================================================
+   Дизайн-система: все токены живут здесь.
+   Чтобы поменять акцент / шрифт / радиусы для всего приложения —
+   правишь :root, темы — [data-theme="..."].
+   ========================================================================= */
 
-  /* Typography — три и только три уровня */
+:root {
+  /* ---------- Brand / accent (меняй здесь для смены акцента всего сайта) */
+  --color-accent: #3b82f6;
+  --color-accent-secondary: #6366f1;
+  --gradient-accent: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-accent-secondary) 100%
+  );
+
+  /* ---------- Typography */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+
   --font-size-heading: 32px;
   --font-size-body: 16px;
   --font-size-muted: 14px;
@@ -16,21 +30,56 @@
   --line-height-body: 1.5;
   --line-height-muted: 1.5;
 
-  --color-text: #1a1a1a;
-  --color-text-secondary: #4a4a4a;
-  --color-text-muted: #8a8a8a;
-  --color-bg: #ffffff;
+  /* ---------- Radii (одно место — везде применяется) */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
 
-  /* Brand gradient */
-  --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-
-  /* Header chrome */
-  --header-bg: rgba(60, 60, 67, 0.1);
-  --header-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  /* ---------- Layout / header */
+  --header-width: 720px;
+  --header-height: 64px;
+  --header-offset-top: 16px;
   --header-blur: 16px;
   --header-logo-size: 20px;
   --header-link-size: 15px;
+
+  /* ---------- Z-index */
+  --z-header: 100;
+
+  /* ---------- Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
 }
+
+/* ============================== Light theme ============================ */
+:root,
+[data-theme='light'] {
+  --color-bg: #ffffff;
+  --color-surface: rgba(60, 60, 67, 0.1);
+  --color-surface-hover: rgba(60, 60, 67, 0.16);
+
+  --color-text: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-muted: #8a8a8a;
+
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================== Dark theme ============================= */
+[data-theme='dark'] {
+  --color-bg: #0d0d0f;
+  --color-surface: rgba(255, 255, 255, 0.08);
+  --color-surface-hover: rgba(255, 255, 255, 0.14);
+
+  --color-text: #f5f5f7;
+  --color-text-secondary: #c8c8cd;
+  --color-text-muted: #8a8a90;
+
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================== Reset ================================== */
 
 *,
 *::before,
@@ -50,11 +99,9 @@ body,
 }
 
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
@@ -71,4 +118,22 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  color: inherit;
+}
+
+/* ============================== View Transitions ======================= */
+/* Круговое раскрытие новой темы из точки клика */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
 }
