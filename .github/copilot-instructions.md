@@ -61,6 +61,13 @@ src/shared/    — ui-kit, hooks, lib, api, types, constants, assets
 - Семантика — через проп `as`: `<Text variant="heading" as="h2">…</Text>`.
 - Запрещено: голые `<h1>/<p>` с собственными `font-size/font-weight`, четвёртый размер.
 
+### Адаптив
+
+- CSS-first: переопределение токенов в `@media (max-width: 799px)` в `global.css`. Компоненты автоматически подхватывают.
+- JS-хук `useIsMobile` (из `@/shared/hooks`, базируется на `useMediaQuery`) — только когда меняется JSX (бургер vs полная навигация). Для visibility-only — используй CSS.
+- Брейкпоинты живут в `@/shared/constants` (`BREAKPOINTS.mobile = 800`). Не хардкодить и не дублировать.
+- Запрещено `window.innerWidth` / listeners на resize.
+
 ### Темизация
 
 - Две темы — `light` и `dark`, переключаются через `data-theme` на `<html>`.

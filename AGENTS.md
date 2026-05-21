@@ -92,6 +92,13 @@ import { Header } from '@/widgets/header/ui/Header';
 - Категории токенов: `--color-*`, `--gradient-*`, `--font-*`, `--radius-*`, `--shadow-*`, `--transition-*`, `--header-*`, `--z-*`.
 - Запрещено: хардкодить hex/rgba, `font-family`, `border-radius`, тени в компонентах.
 
+## Адаптив
+
+- CSS-first: переопределяй токены в `@media (max-width: 799px)` в `global.css`, компоненты подхватят сами.
+- JS-хук `useIsMobile` из `@/shared/hooks` — **только** когда нужна другая разметка (бургер vs полная навигация). Не для скрытия/показа — это делает CSS.
+- Брейкпоинты — единый источник: `@/shared/constants` (BREAKPOINTS.mobile = 800). Не хардкодить.
+- Не использовать `window.innerWidth` / resize listener напрямую.
+
 ## Темизация
 
 - Две темы — `light` и `dark`, переключаются через `data-theme` на `<html>`.

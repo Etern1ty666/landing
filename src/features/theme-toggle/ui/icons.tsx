@@ -1,7 +1,7 @@
 export const SunIcon = () => (
   <svg
-    width="20"
-    height="20"
+    width="22"
+    height="22"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -26,8 +26,8 @@ export const SunIcon = () => (
 
 export const MoonIcon = () => (
   <svg
-    width="20"
-    height="20"
+    width="22"
+    height="22"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

@@ -91,6 +91,12 @@ import { Header } from '@/widgets/header/ui/Header';
 - Семантику менять через `as`: `<Text variant="heading" as="h2">`.
 - Четвёртый размер вводить нельзя. Голые `<h1>/<p>` со своим font-size — запрещены.
 
+## Адаптив
+
+- CSS-first: переопределяй токены в `@media (max-width: 799px)` в `global.css`.
+- JS-хук `useIsMobile` из `@/shared/hooks` — только когда нужна разная разметка (бургер vs nav).
+- Брейкпоинты — `@/shared/constants` (BREAKPOINTS). Не хардкодить, не использовать `window.innerWidth`.
+
 ## Темизация
 
 - Две темы — `light` и `dark` (атрибут `data-theme` на `<html>`).

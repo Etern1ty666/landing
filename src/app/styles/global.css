@@ -37,7 +37,8 @@
   --radius-pill: 9999px;
 
   /* ---------- Layout / header */
-  --header-width: 1200px;
+  /* Адаптивная ширина: 1200 на больших экранах, иначе вся ширина минус 48px полей */
+  --header-width: min(1200px, calc(100vw - 48px));
   --header-height: 92px;
   --header-offset-top: 32px;
   --header-blur: 16px;
@@ -50,6 +51,24 @@
   /* ---------- Transitions */
   --transition-fast: 0.15s ease;
   --transition-base: 0.3s ease;
+
+  /* ---------- Brand-on-accent (white всегда — поверх синего градиента) */
+  --color-on-accent: #ffffff;
+}
+
+/* ============================== Mobile overrides ======================= */
+/* Переопределяем токены под мобильную ширину — компоненты подхватят
+   автоматически. Брейкпоинт синхронизирован с BREAKPOINTS.mobile (800). */
+@media (max-width: 799px) {
+  :root {
+    --header-width: calc(100vw - 24px);
+    --header-height: 56px;
+    --header-logo-size: 18px;
+
+    --font-size-heading: 32px;
+    --font-size-body: 16px;
+    --font-size-muted: 14px;
+  }
 }
 
 /* ============================== Light theme ============================ */

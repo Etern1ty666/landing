@@ -1,0 +1,178 @@
+.wrapper {
+  position: fixed;
+  top: var(--header-offset-top);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-header);
+  width: var(--header-width);
+  height: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  /* Левый padding чуть больше — компенсирует «пустой» хит-эриа бургера справа,
+     чтобы лого и иконка визуально стояли на одинаковом расстоянии от края. */
+  padding: 0 16px 0 24px;
+  background: var(--color-surface);
+  backdrop-filter: blur(var(--header-blur));
+  -webkit-backdrop-filter: blur(var(--header-blur));
+  border-radius: calc(var(--header-height) / 2);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wrapper.open {
+  height: 360px;
+}
+
+/* ============== Верхняя строка (логотип + бургер) ============== */
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  flex-shrink: 0;
+}
+
+.logo {
+  font-size: var(--header-logo-size);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+/* ============== Бургер ↔ крестик ============== */
+.burger {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+}
+
+.burger span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transition:
+    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.18s ease;
+}
+
+.burgerOpen span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.burgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerOpen span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ============== Раскрывающееся меню ============== */
+.menu {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 8px 0 12px;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.open .menu {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 4px;
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.link::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+  transform: scaleY(0.3);
+}
+
+.link:hover {
+  color: var(--color-text);
+}
+
+.linkActive {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.linkActive::before {
+  background: var(--gradient-accent);
+  transform: scaleY(1);
+}
+
+.themeRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* padding-left = link padding (4) + indicator (4) + gap (10) - button icon offset (4) = 14 */
+  padding: 12px 0 12px 14px;
+  margin-top: 4px;
+}
+
+.themeRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: var(--color-surface-hover);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Тянем кнопку ближе к краям хедера, перекрывая wrapper-padding (24px / 16px) */
+  margin: auto -4px 0 -12px;
+  padding: 14px;
+  background: var(--gradient-accent);
+  color: var(--color-on-accent);
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: opacity var(--transition-fast);
+}
+
+.cta:hover {
+  opacity: 0.9;
+}
